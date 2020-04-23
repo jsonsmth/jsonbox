@@ -11,7 +11,7 @@ const removeNativeKeys = (req, res, next) => {
 	next();
 };
 
-// validator: size of payload should be < 10KB
+// validator: size of payload should be < 100KB
 const sizeValidator = (req, res, next) => {
 	if (req.method === 'POST' || req.method === 'PUT') {
 		if (Object.keys(req.body).length > 0) {
@@ -19,7 +19,7 @@ const sizeValidator = (req, res, next) => {
 			req['bodySize'] = memorySize;
 
 			// memorySize is size in bytes. 10KB  => 10 * 1024
-			if (memorySize > 10 * 1024) {
+			if (memorySize > 100 * 1024) {
 				throwError('JSON body is too large. Should be less than 10KB', 413);
 			} else if (Array.isArray(req.body)) {
 				if (req.body.length > 1000) {
